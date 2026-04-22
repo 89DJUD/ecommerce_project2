@@ -73,7 +73,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'db_ecommerce',
         'USER': 'root',
-        'PASSWORD': '',   # XAMPP par défaut
+        'PASSWORD': 'root',  
         'HOST': 'localhost',
         'PORT': '3306',
     }
