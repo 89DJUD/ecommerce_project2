@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(255, 47, 149, 0.12), transparent 34%),
+                radial-gradient(circle at top right, rgba(116, 54, 255, 0.12), transparent 32%),
+                #fbf8ff;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #21142e, #4b1c76, #b72c82) !important;
+            box-shadow: 0 12px 28px rgba(64, 24, 100, 0.18);
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            letter-spacing: 0;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            transition: color 180ms ease, transform 180ms ease;
+        }
+
+        .nav-link:hover {
+            color: #ffd6ef !important;
+            transform: translateY(-1px);
+        }
+
+        main.container {
+            min-height: 70vh;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #21142e, #4b1c76);
+            color: white;
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        .btn {
+            border-radius: 8px;
+        }
+
+        .card {
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        {% block extra_css %}{% endblock %}
+    </style>
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+
+            <a class="navbar-brand" href="{% url 'product_list' %}">
+                E-Commerce
+            </a>
+
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav ms-auto">
+
+                    <a class="nav-link active" href="{% url 'product_list' %}">
+                        Accueil
+                    </a>
+
+                    <a class="nav-link" href="{% url 'product_list' %}">
+                        Produits
+                    </a>
+
+                    <a class="nav-link" href="{% url 'cart_detail' %}">
+                        Panier
+                        {% if request.session.cart %}
+                            <span class="badge bg-light text-dark ms-1">{{ request.session.cart|length }}</span>
+                        {% endif %}
+                    </a>
+
+                    {% if user.is_authenticated %}
+
+                        <a class="nav-link" href="{% url 'profile' %}">
+                            Mon profil
+                        </a>
+
+                        <span class="navbar-text text-white mx-3">
+                            Bonjour, {{ user.username }}
+                        </span>
+
+                        <form method="post" action="{% url 'logout' %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-light btn-sm">
+                                Déconnexion
+                            </button>
+                        </form>
+
+                    {% else %}
+
+                        <a class="nav-link" href="{% url 'login' %}">
+                            Connexion
+                        </a>
+
+                        <a class="nav-link" href="{% url 'signup' %}">
+                            Créer un compte
+                        </a>
+
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main class="container mt-4">
+    {% if messages %}
+        <div class="mt-3">
+            {% for message in messages %}
+                <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-{{ message.tags|default:'info' }}{% endif %} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+</main>
+
+<footer class="text-center mt-5">
+    © 2026 EMI | Projet E-Commerce
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+{% block extra_js %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Connexion
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .glass-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    .form-control {
+        border-radius: 10px;
+        transition: 0.3s;
+    }
+
+    .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 8px rgba(13, 110, 253, 0.5);
+    }
+
+    body {
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+    }
+
+    label,
+    h2 {
+        color: #fff;
+    }
+</style>
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-4">
+        <div class="glass-card">
+            <h2 class="text-center mb-4">Connexion</h2>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label>Nom d'utilisateur</label>
+                    {{ form.username }}
+                </div>
+
+                <div class="mb-3">
+                    <label>Mot de passe</label>
+                    {{ form.password }}
+                </div>
+
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" onclick="togglePassword()">
+                    <label class="form-check-label text-white">
+                        Afficher mot de passe
+                    </label>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox">
+                    <label class="form-check-label text-white">
+                        Se souvenir de moi
+                    </label>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">
+                        Se connecter
+                    </button>
+                </div>
+            </form>
+
+            <p class="text-center mt-3">
+                <a href="{% url 'password_reset' %}" class="text-light">
+                    Mot de passe oublié ?
+                </a>
+            </p>
+
+            <p class="text-center text-white">
+                Pas de compte ?
+                <a href="{% url 'signup' %}" class="text-warning">Créer un compte</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+function togglePassword() {
+    var passwordInput = document.getElementById("id_password");
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+    } else {
+        passwordInput.type = "password";
+    }
+}
+</script>
+
+{% endblock %}

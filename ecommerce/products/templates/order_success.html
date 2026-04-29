@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Commande confirmée
+{% endblock %}
+
+{% block extra_css %}
+    .success-panel {
+        max-width: 720px;
+        margin: 50px auto;
+        padding: 38px;
+        border-radius: 8px;
+        text-align: center;
+        color: #fff;
+        background: linear-gradient(120deg, #ff2f95, #7436ff, #20caff);
+        background-size: 220% 220%;
+        box-shadow: 0 24px 70px rgba(45, 13, 89, 0.28);
+        animation: successFlow 10s ease infinite;
+    }
+
+    .success-mark {
+        width: 76px;
+        height: 76px;
+        display: grid;
+        place-items: center;
+        margin: 0 auto 18px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.22);
+        border: 1px solid rgba(255, 255, 255, 0.38);
+        font-size: 34px;
+        font-weight: 800;
+    }
+
+    .white-btn {
+        min-height: 46px;
+        border-radius: 8px;
+        color: #7436ff;
+        font-weight: 800;
+        background: #fff;
+    }
+
+    @keyframes successFlow {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+    }
+{% endblock %}
+
+{% block content %}
+
+<section class="success-panel">
+    <div class="success-mark">✓</div>
+    <h1 class="fw-bold">Commande confirmée</h1>
+    <p class="mb-2">Merci {{ order.full_name }}. Ton paiement test a été accepté.</p>
+    <p class="mb-4">Commande #{{ order.id }} - Total : <strong>{{ order.total }} DH</strong></p>
+    <a href="{% url 'product_list' %}" class="btn white-btn">
+        Retour à la boutique
+    </a>
+</section>
+
+{% endblock %}

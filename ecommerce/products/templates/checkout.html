@@ -1,0 +1,115 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Paiement
+{% endblock %}
+
+{% block extra_css %}
+    .checkout-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 360px;
+        gap: 24px;
+        align-items: start;
+    }
+
+    .checkout-card {
+        padding: 28px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: 0 22px 54px rgba(66, 25, 110, 0.12);
+    }
+
+    .checkout-card input,
+    .checkout-card textarea {
+        min-height: 46px;
+        border-radius: 8px;
+    }
+
+    .gradient-btn {
+        min-height: 48px;
+        border: 0;
+        border-radius: 8px;
+        color: #fff;
+        font-weight: 800;
+        background: linear-gradient(135deg, #ff2f95, #7436ff);
+        box-shadow: 0 14px 28px rgba(116, 54, 255, 0.26);
+    }
+
+    .payment-box {
+        border: 1px solid rgba(116, 54, 255, 0.16);
+        border-radius: 8px;
+        padding: 14px;
+        background: #faf7ff;
+    }
+
+    @media (max-width: 992px) {
+        .checkout-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+{% endblock %}
+
+{% block content %}
+
+<h1 class="fw-bold mb-4">Paiement</h1>
+
+<div class="checkout-grid">
+    <form method="post" class="checkout-card">
+        {% csrf_token %}
+
+        <h4 class="fw-bold mb-3">Informations de livraison</h4>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Nom complet</label>
+                <input type="text" name="full_name" class="form-control" value="{{ request.user.get_full_name }}" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" value="{{ request.user.email }}" required>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Adresse</label>
+            <textarea name="address" class="form-control" rows="3" required></textarea>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Ville</label>
+                <input type="text" name="city" class="form-control" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Téléphone</label>
+                <input type="text" name="phone" class="form-control" required>
+            </div>
+        </div>
+
+        <h4 class="fw-bold mt-4 mb-3">Méthode de paiement</h4>
+        <div class="payment-box mb-4">
+            <strong>Paiement test</strong>
+            <p class="mb-0 text-muted">Pour ce projet, le paiement est simulé et la commande est validée immédiatement.</p>
+        </div>
+
+        <button type="submit" class="btn gradient-btn w-100">
+            Payer {{ cart_total }} DH
+        </button>
+    </form>
+
+    <aside class="checkout-card">
+        <h4 class="fw-bold">Commande</h4>
+        {% for item in cart_items %}
+            <div class="d-flex justify-content-between border-bottom py-2">
+                <span>{{ item.product.name }} x {{ item.quantity }}</span>
+                <strong>{{ item.subtotal }} DH</strong>
+            </div>
+        {% endfor %}
+        <div class="d-flex justify-content-between mt-3">
+            <span>Total</span>
+            <strong>{{ cart_total }} DH</strong>
+        </div>
+    </aside>
+</div>
+
+{% endblock %}

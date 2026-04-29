@@ -1,18 +1,86 @@
-<h1>{{ product.name }}</h1>
+{% extends 'layout.html' %}
 
-{% if product.image %}
-    <img src="{{ product.image.url }}" width="250" alt="{{ product.name }}">
-{% endif %}
+{% block title %}
+Détail du produit
+{% endblock %}
 
-<p><strong>Description :</strong> {{ product.description }}</p>
-<p><strong>Prix :</strong> {{ product.price }} €</p>
-<p><strong>Stock :</strong> {{ product.stock }}</p>
+{% block extra_css %}
+    .detail-panel {
+        overflow: hidden;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 24px 60px rgba(66, 25, 110, 0.12);
+    }
 
-<p>
-    <strong>Catégorie :</strong>
-    <a href="{% url 'category_detail' product.category.id %}">
-        {{ product.category.name }}
-    </a>
-</p>
+    .detail-media {
+        display: grid;
+        place-items: center;
+        min-height: 420px;
+        padding: 28px;
+        background:
+            radial-gradient(circle at 30% 20%, rgba(255, 47, 149, 0.14), transparent 34%),
+            linear-gradient(180deg, #fff, #faf7ff);
+    }
 
-<a href="{% url 'product_list' %}">Retour à la liste des produits</a>
+    .detail-media img {
+        max-width: 100%;
+        max-height: 380px;
+        object-fit: contain;
+    }
+
+    .detail-content {
+        padding: 34px;
+    }
+
+    .detail-price {
+        display: inline-flex;
+        padding: 8px 14px;
+        border-radius: 999px;
+        color: #fff;
+        font-weight: 800;
+        background: linear-gradient(135deg, #ff2f95, #7436ff);
+    }
+
+    .pay-btn {
+        min-height: 48px;
+        border: 0;
+        border-radius: 8px;
+        color: #fff;
+        font-weight: 800;
+        background: linear-gradient(135deg, #ff2f95, #7436ff);
+        box-shadow: 0 14px 28px rgba(116, 54, 255, 0.26);
+    }
+{% endblock %}
+
+{% block content %}
+
+<div class="detail-panel row g-0 mt-4">
+    <div class="col-lg-6 detail-media">
+        {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% endif %}
+    </div>
+
+    <div class="col-lg-6 detail-content">
+        <h1 class="fw-bold">{{ product.name }}</h1>
+        <p class="detail-price mt-2">{{ product.price }} DH</p>
+        <p class="mt-4 text-muted">{{ product.description }}</p>
+        <p class="fw-semibold">Stock disponible : {{ product.stock }}</p>
+
+        <form method="post" action="{% url 'add_to_cart' product.id %}" class="mt-4">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{% url 'cart_detail' %}">
+            <label class="form-label">Quantité</label>
+            <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" class="form-control mb-3">
+            <button type="submit" class="btn pay-btn w-100">
+                Ajouter au panier
+            </button>
+        </form>
+
+        <a href="{% url 'product_list' %}" class="btn btn-outline-secondary mt-3">
+            Retour aux produits
+        </a>
+    </div>
+</div>
+
+{% endblock %}

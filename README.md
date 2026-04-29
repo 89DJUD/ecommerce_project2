@@ -7,6 +7,50 @@ Projet e-commerce realise avec Django.
 - Python
 - Django
 - SQLite
+- Bootstrap
+
+## Fonctionnalites
+
+- Liste des produits
+- Detail d'un produit
+- Authentification utilisateur
+- Profil utilisateur
+- Modification du profil
+- Reinitialisation du mot de passe
+- Panier
+- Checkout avec paiement simule
+- Commandes en base de donnees
+- Images des produits
+
+## Captures d'ecran
+
+### Page produits
+
+![Page produits](docs/images/products.png)
+
+### Panier
+
+![Panier](docs/images/cart.png)
+
+### Profil utilisateur
+
+![Profil utilisateur](docs/images/profile.png)
+
+### Profil utilisateur connecte
+
+![Profil utilisateur connecte](docs/images/profile-v2.png)
+
+### Connexion
+
+![Page connexion](docs/images/login.png)
+
+### Creation de compte
+
+![Creation de compte](docs/images/signup.png)
+
+### Reinitialisation du mot de passe
+
+![Reinitialisation du mot de passe](docs/images/password-reset.png)
 
 ## Installation
 
@@ -24,10 +68,10 @@ python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
 
-Installer Django :
+Installer les dependances :
 
 ```powershell
-pip install django
+pip install django pillow
 ```
 
 ## Lancer le projet
@@ -55,14 +99,6 @@ Ouvrir ensuite :
 ```text
 http://127.0.0.1:8000/products/
 ```
-
-## Fonctionnalites
-
-- Liste des produits
-- Detail d'un produit
-- Liste des categories
-- Detail d'une categorie
-- Images des produits
 
 ## Auteur
 
