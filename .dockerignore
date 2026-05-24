@@ -1,0 +1,11 @@
+.git
+.venv
+myenv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+db.sqlite3
+.env
+docs

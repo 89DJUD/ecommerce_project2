@@ -1,0 +1,59 @@
+[
+{
+  "model": "products.category",
+  "pk": 1,
+  "fields": {
+    "name": "laptop",
+    "description": "",
+    "created_at": "2026-04-23T16:32:08.690Z"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 2,
+  "fields": {
+    "name": "phone",
+    "description": "",
+    "created_at": "2026-04-23T16:32:34.980Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 1,
+  "fields": {
+    "name": "iphone15",
+    "description": "128GB BLEU",
+    "price": "7000.00",
+    "stock": 4,
+    "image": "products/images/images_4.jpg",
+    "category": 2,
+    "created_at": "2026-04-23T16:34:13.481Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 2,
+  "fields": {
+    "name": "Lenovo",
+    "description": "lenovo slim i7",
+    "price": "10000.00",
+    "stock": 3,
+    "image": "products/images/téléchargement_11_EVgXjGc.jpg",
+    "category": 1,
+    "created_at": "2026-04-23T16:52:56.313Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 3,
+  "fields": {
+    "name": "hp",
+    "description": "new 16 dans la ram",
+    "price": "10000.00",
+    "stock": 1,
+    "image": "products/images/images_5.jpg",
+    "category": 1,
+    "created_at": "2026-04-23T16:54:38.191Z"
+  }
+}
+]

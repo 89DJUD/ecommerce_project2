@@ -17,6 +17,13 @@ services:
     volumes:
       - .:/app
     working_dir: /app
+    environment:
+      USE_MYSQL: "1"
+      MYSQL_DATABASE: DB_ECOMMERCE
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_HOST: db
+      MYSQL_PORT: "3306"
     ports:
       - "8000:8000"
     depends_on:

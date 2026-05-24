@@ -100,6 +100,46 @@ Ouvrir ensuite :
 http://127.0.0.1:8000/products/
 ```
 
+## Lancer avec Docker
+
+Construire et demarrer les conteneurs Django + MySQL :
+
+```powershell
+docker compose up --build -d
+```
+
+Ouvrir ensuite :
+
+```text
+http://localhost:8000/products/
+```
+
+Acceder a l'administration :
+
+```text
+http://localhost:8000/admin/
+```
+
+Compte admin de test :
+
+```text
+Utilisateur : admin
+Mot de passe : admin12345
+```
+
+Importer les produits d'exemple dans MySQL si la liste est vide :
+
+```powershell
+docker compose cp ecommerce\products_fixture.json web:/app/products_fixture.json
+docker compose exec web python manage.py loaddata /app/products_fixture.json
+```
+
+Arreter les conteneurs :
+
+```powershell
+docker compose down
+```
+
 ## Auteur
 
 89DJUD
